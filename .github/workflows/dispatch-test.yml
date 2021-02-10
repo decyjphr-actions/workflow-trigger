@@ -1,0 +1,15 @@
+name: "dispatch-test"
+on: 
+  workflow_dispatch:
+    inputs:
+      inputs:
+        description: 'Inputs JSON '     
+        required: true
+        default: '{}'
+
+jobs:
+  printInputs:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Log level: ${{ github.event.inputs.inputs }}"

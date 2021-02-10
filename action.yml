@@ -1,13 +1,22 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'workflow-dispatch'
+description: 'Action wrapper around the workflow dispatch'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  workflow:  # workflow id or name
+    description: 'id or name of the workflow to be triggered'
     required: true
-    default: '1000'
+  token:  # See https://docs.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token
+    description: 'Github PAT'
+    required: true
+  ref:
+    description: 'ref'
+    required: true
+  inputJson:
+    description: 'Input JSON'
+    required: true
+    default: '{}'
 outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  response: # response of invoking the dispatch event
+    description: 'response for invoking'
 runs:
   using: 'node12'
   main: 'dist/index.js'

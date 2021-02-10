@@ -2,10 +2,10 @@ name: "dispatch-test"
 on: 
   workflow_dispatch:
     inputs:
-      inputs:
-        description: 'Inputs JSON '     
+      status:
+        description: 'Status of the previous workflow'     
         required: true
-        default: '{}'
+        default: 'passed'
 
 jobs:
   printInputs:

@@ -10,7 +10,7 @@ inputs:
   ref:
     description: 'ref'
     required: true
-  inputJson:
+  inputs:
     description: 'Input JSON'
     required: true
     default: '{}'

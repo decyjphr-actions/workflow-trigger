@@ -30,7 +30,7 @@ async function run() {
     // Call workflow_dispatch API
     const dispatchResp = await octokit.request(`POST /repos/${owner}/${repo}/actions/workflows/${workflow}/dispatches`, {
       ref: ref,
-      inputs: inputsJson
+      inputs: inputs
     })
     core.info(`API response status: ${dispatchResp.status} 🚀`)
     core.setOutput("response", dispatchResp);

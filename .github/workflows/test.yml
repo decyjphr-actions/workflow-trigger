@@ -25,4 +25,4 @@ jobs:
         workflow: dispatch-test.yml
         token: ${{secrets.pat}}
         ref: main
-        inputs: '{"status": "passed"}'
+        inputs: '{"ref":"main","inputs":{"status":"passed"}}'

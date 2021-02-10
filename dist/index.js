@@ -23,13 +23,14 @@ async function run() {
       inputs = JSON.parse(inputsJson)
     }
     console.log('start9ng')
+    console.log(inputs)
     const octokit =  github.getOctokit(token)
     const repo = github.context.repo.repo
     const owner =  github.context.repo.owner
     // Call workflow_dispatch API
     const dispatchResp = await octokit.request(`POST /repos/${owner}/${repo}/actions/workflows/${workflow}/dispatches`, {
       ref: ref,
-      inputs: inputs
+      inputs: inputsJson
     })
     core.info(`API response status: ${dispatchResp.status} 🚀`)
     core.setOutput("response", dispatchResp);

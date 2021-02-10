@@ -15,7 +15,8 @@ async function run() {
     if(inputsJson) {
       inputs = JSON.parse(inputsJson)
     }
-    const octokit = new github.GitHub(token)
+    console.log('start9ng')
+    const octokit =  github.getOctokit(token)
     const repo = github.context.repo.repo
     const owner =  github.context.repo.owner
     // Call workflow_dispatch API
@@ -26,6 +27,7 @@ async function run() {
     core.info(`API response status: ${dispatchResp.status} 🚀`)
     core.setOutput("response", dispatchResp);
   } catch (error) {
+    console.log(error)
     core.setFailed(error.message);
   }
 }

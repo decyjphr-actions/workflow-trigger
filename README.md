@@ -1,116 +1,80 @@
-# Create a JavaScript Action
+# Workflow-dispatch
 
-<p align="center">
-  <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
-</p>
+This repository is for the **GitHub Action** to run a **Workflow-dispatch**.
+Which is simple action to trigger a dependent workflow using the [workflow dispatch event](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch).
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
+**The end goal of this tool:**
 
-This template includes tests, linting, a validation workflow, publishing, and versioning guidance.
+- Provide a generalized mechanism to trigger workflows that are dependent on a particular workflow.
+- Address use cases where `workflow_run` event is not a good fit, such as, when we want more control based on the status of the triggering workflow.
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+**Constraints**
+- We need a personal access token because [events raised from workflows using the GITHUB_TOKEN do not currently trigger other workflows](https://github.community/t/action-does-not-trigger-another-on-push-tag-action/17148/4)
 
-## Create an action from this template
+## Table of Contents
 
-Click the `Use this Template` and provide the new repo details for your action
+- [Workflow-dispatch](#workflow-dispatch)
+  - [Table of Contents](#table-of-contents)
+  - [How it Works](#how-it-works)
+  - [How to use](#how-to-use)
+    - [Example connecting GitHub Action Workflow](#example-connecting-github-action-workflow)
+  - [Limitations](#limitations)
+  - [How to contribute](#how-to-contribute)
+    - [License](#license)
 
-## Code in Main
+## How it Works
 
-Install the dependencies
+The action takes 
 
-```bash
-npm install
+## How to use
+
+To use this **GitHub** Action you will need to complete the following:
+
+1. Create a **secret** to pass as input for  `token`. This **cannot** be the **GITHUB_TOKEN** secret that is implicitly created in the workflow.
+2. Add the task in your workflow where you see fit. You can use the example below as a reference.
+3. Modify the example to pass the correct values for `workflow`,`ref`, `token`, and `inputs`
+
+### Example connecting GitHub Action Workflow
+
+In your repository you should have a `.github/workflows` folder with **GitHub** Action similar to below:
+
+- `.github/workflows/test.yml`
+
+This file should look like the following:
+
+```yml
+---
+name: "sample-workflow"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: decyjphr-actions/repository-dispatch
+      with:
+        workflow: dispatch-test.yml
+        token: ${{secrets.pat}}
+        ref: main
+        inputs: '{"status":"passed"}'
 ```
 
-Run the tests :heavy_check_mark:
 
-```bash
-$ npm test
+## Limitations
 
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-...
-```
 
-## Change action.yml
+## How to contribute
 
-The action.yml defines the inputs and output for your action.
+If you would like to help contribute to this **GitHub** Action, please see [CONTRIBUTING](https://github.com/decyjphr-actions/workflow-dispatch/blob/master/.github/CONTRIBUTING.md)
 
-Update the action.yml with your name, description, inputs and outputs for your action.
+---
 
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
+### License
 
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-const core = require('@actions/core');
-...
-
-async function run() {
-  try {
-      ...
-  }
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Package for distribution
-
-GitHub Actions will run the entry point from the action.yml. Packaging assembles the code into one file that can be checked in to Git, enabling fast and reliable execution and preventing the need to check in node_modules.
-
-Actions are run from GitHub repos.  Packaging the action will create a packaged action in the dist folder.
-
-Run prepare
-
-```bash
-npm run prepare
-```
-
-Since the packaged index.js is run from the dist folder.
-
-```bash
-git add dist
-```
-
-## Create a release branch
-
-Users shouldn't consume the action from master since that would be latest code and actions can break compatibility between major versions.
-
-Checkin to the v1 release branch
-
-```bash
-git checkout -b v1
-git commit -a -m "v1 release"
-```
-
-```bash
-git push origin v1
-```
-
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket:
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Usage
-
-You can now consume the action by referencing the v1 branch
-
-```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+- [MIT License](https://github.com/decyjphr-actions/workflow-dispatch/blob/master/LICENSE)

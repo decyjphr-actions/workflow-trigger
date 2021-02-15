@@ -12,4 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo "Log level:: ${{ github.event.inputs.inputs }}"
+        echo "Log level:: ${{ github.event.inputs.status }}"

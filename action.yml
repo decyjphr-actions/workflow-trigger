@@ -1,5 +1,5 @@
-name: 'workflow-dispatch'
-description: 'Action wrapper around the workflow dispatch'
+name: 'workflow trigger'
+description: 'Trigger another workflow in the same repo using workflow dispatch'
 inputs:
   workflow:  # workflow id or name
     description: 'id or name of the workflow to be triggered'
@@ -11,7 +11,7 @@ inputs:
     description: 'ref'
     required: true
   inputs:
-    description: 'Input JSON'
+    description: 'Inputs to be sent'
     required: true
     default: '{}'
 outputs:

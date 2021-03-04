@@ -1,7 +1,7 @@
-# Workflow-dispatch
+# Workflow-trigger
 
-This repository is for the **GitHub Action** to run a **Workflow-dispatch**.
-Which is simple action to trigger a dependent workflow using the [workflow dispatch event](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch).
+This  is a **GitHub Action** to send a **Workflow-dispatch** event to another action.
+Use this action to trigger a dependent workflow using the [workflow dispatch event](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch).
 
 **The end goal of this tool:**
 
@@ -13,7 +13,7 @@ Which is simple action to trigger a dependent workflow using the [workflow dispa
 
 ## Table of Contents
 
-- [Workflow-dispatch](#workflow-dispatch)
+- [Workflow-trigger](#workflow-dispatch)
   - [Table of Contents](#table-of-contents)
   - [How it Works](#how-it-works)
   - [How to use](#how-to-use)
